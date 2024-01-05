@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {
   Alert,
-  ScrollView,
+  FlatList,
   Text,
   TextInput,
   TouchableOpacity,
@@ -23,7 +23,16 @@ export const Home = () => {
   }
 
   const removeParticipant = (name: string) => {
-    setParticipants(participants.filter(n => n !== name))
+    Alert.alert('Remover', `Remover o participante ${name}?`, [
+      {
+        text: 'Sim',
+        onPress: () => {
+          setParticipants(participants.filter(n => n !== name))
+          Alert.alert(`${name} deletado`)
+        },
+      },
+      { text: 'Não', style: 'cancel' },
+    ])
   }
 
   return (
@@ -46,15 +55,23 @@ export const Home = () => {
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {participants.sort().map((name, index) => (
+      <FlatList
+        data={participants}
+        keyExtractor={item => item}
+        renderItem={({ item }) => (
           <Participant
-            key={index}
+            key={item}
+            name={item}
             onRemove={removeParticipant}
-            name={name}
           />
-        ))}
-      </ScrollView>
+        )}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={() => (
+          <Text style={styles.empty}>
+            Ninguém no evento ainda? Adicione participantes
+          </Text>
+        )}
+      ></FlatList>
     </View>
   )
 }
