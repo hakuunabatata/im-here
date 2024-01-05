@@ -1,14 +1,18 @@
-import { Text, View, TextInput, TouchableOpacity } from 'react-native'
-import styles from './styles'
+import { useState } from 'react'
+import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { Participant } from '../..'
+import styles from './styles'
 
 export const Home = () => {
-  const addParticipant = () => {
-    console.log('Clicou no +')
+  const [participants, setParticipants] = useState<string[]>([])
+
+  const addParticipant = (name: string) => {
+    if (!participants.includes(name)) setParticipants([...participants, name])
+    else console.log(`${name} já existe`)
   }
 
-  const removeParticipant = () => {
-    console.log('Clicou no -')
+  const removeParticipant = (name: string) => {
+    setParticipants(participants.filter((n) => n !== name))
   }
 
   return (
@@ -22,11 +26,16 @@ export const Home = () => {
           placeholderTextColor="#6B6B6B"
         />
 
-        <TouchableOpacity style={styles.button} onPress={addParticipant}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => addParticipant('aaa')}
+        >
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
       </View>
-      <Participant onPress={removeParticipant} />
+      {participants.sort().map((name, index) => (
+        <Participant key={index} onPress={removeParticipant} name={name} />
+      ))}
     </View>
   )
 }

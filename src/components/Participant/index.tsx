@@ -2,15 +2,16 @@ import { Text, TouchableOpacity, View } from 'react-native'
 import styles from './styles'
 
 type ParticipantProps = {
-  onPress: () => void
+  onPress: (name: string) => void
+  name: string
 }
 
-export const Participant = ({ onPress }: ParticipantProps) => {
+export const Participant = ({ onPress, name }: ParticipantProps) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.name}>Name</Text>
+      <Text style={styles.name}>{name}</Text>
 
-      <TouchableOpacity style={styles.button} onPress={onPress}>
+      <TouchableOpacity style={styles.button} onPress={() => onPress(name)}>
         <Text style={styles.buttonText}>{'-'}</Text>
       </TouchableOpacity>
     </View>
