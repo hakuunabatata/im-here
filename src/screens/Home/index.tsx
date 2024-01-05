@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import {
+  Alert,
   ScrollView,
   Text,
   TextInput,
@@ -13,9 +14,12 @@ export const Home = () => {
   const [participants, setParticipants] = useState<string[]>([])
 
   const addParticipant = (name: string) => {
-    if (!participants.includes(name))
-      setParticipants([...participants, name])
-    else console.log(`${name} já existe`)
+    if (participants.includes(name))
+      return Alert.alert(
+        'Participante existente',
+        'Participante já está na lista',
+      )
+    setParticipants([...participants, name])
   }
 
   const removeParticipant = (name: string) => {

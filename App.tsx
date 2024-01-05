@@ -4,7 +4,10 @@ import { Home } from './src'
 export default function App() {
   return (
     <>
-      <StatusBar translucent />
+      <StatusBar
+        translucent
+        style='dark'
+      />
       <Home />
     </>
   )
