@@ -1,9 +1,14 @@
 import { Text, View, TextInput, TouchableOpacity } from 'react-native'
 import styles from './styles'
+import { Participant } from '../..'
 
 export const Home = () => {
-  const handleParticipantAdd = () => {
+  const addParticipant = () => {
     console.log('Clicou no +')
+  }
+
+  const removeParticipant = () => {
+    console.log('Clicou no -')
   }
 
   return (
@@ -17,10 +22,11 @@ export const Home = () => {
           placeholderTextColor="#6B6B6B"
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
+        <TouchableOpacity style={styles.button} onPress={addParticipant}>
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
       </View>
+      <Participant onPress={removeParticipant} />
     </View>
   )
 }
