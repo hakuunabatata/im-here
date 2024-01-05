@@ -1,5 +1,11 @@
+import { StatusBar } from 'expo-status-bar'
 import { Home } from './src'
 
 export default function App() {
-  return <Home />
+  return (
+    <>
+      <StatusBar translucent />
+      <Home />
+    </>
+  )
 }
