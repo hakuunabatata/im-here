@@ -12,14 +12,17 @@ import styles from './styles'
 
 export const Home = () => {
   const [participants, setParticipants] = useState<string[]>([])
+  const [participant, setParticipant] = useState('')
 
-  const addParticipant = (name: string) => {
-    if (participants.includes(name))
+  const addParticipant = () => {
+    if (!participant) return
+    if (participants.includes(participant))
       return Alert.alert(
         'Participante existente',
         'Participante já está na lista',
       )
-    setParticipants([...participants, name])
+    setParticipants([...participants, participant])
+    setParticipant('')
   }
 
   const removeParticipant = (name: string) => {
@@ -28,7 +31,6 @@ export const Home = () => {
         text: 'Sim',
         onPress: () => {
           setParticipants(participants.filter(n => n !== name))
-          Alert.alert(`${name} deletado`)
         },
       },
       { text: 'Não', style: 'cancel' },
@@ -46,11 +48,13 @@ export const Home = () => {
           style={styles.input}
           placeholder='Nome do participante'
           placeholderTextColor='#6B6B6B'
+          onChangeText={setParticipant}
+          value={participant}
         />
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => addParticipant('aaa')}
+          onPress={addParticipant}
         >
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
